@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}{{ editar and "Edit Item" or "New Item" }}{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">{{ editar and "Edit Item" or "New Item" }}</h2>
+
+<form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+
+    <!-- Item Name -->
+    <div class="mb-3">
+        {{ form.nombre.label(class="form-label") }}
+        {{ form.nombre(class="form-control", placeholder="Enter item name") }}
+    </div>
+
+    <!-- Item Description -->
+    <div class="mb-3">
+        {{ form.descripcion.label(class="form-label") }}
+        {{ form.descripcion(class="form-control", placeholder="Enter item description") }}
+    </div>
+
+    <!-- Item Quantity -->
+    <div class="mb-3">
+        {{ form.cantidad.label(class="form-label") }}
+        {{ form.cantidad(class="form-control", placeholder="Enter quantity") }}
+    </div>
+
+    <!-- Submit Button -->
+    <div class="mb-3">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+
+{% endblock %}

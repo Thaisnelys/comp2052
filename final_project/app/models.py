@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Modelo de roles (Admin, Professor, Student, etc.)
+# Modelo de roles (Admin, Usuario, Owner, etc.)
 class Role(db.Model):
     __tablename__ = 'role'
     
@@ -24,11 +24,11 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(256), nullable=False)  # Asegura suficiente espacio para el hash
+    password_hash = db.Column(db.String(256), nullable=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
 
-    # Relación con cursos (si es profesor)
-    cursos = db.relationship('Curso', backref='profesor', lazy=True)
+    # Relación con items (inventario personal)
+    items = db.relationship('Item', backref='usuario', lazy=True)
 
     def set_password(self, password: str):
         """
@@ -42,11 +42,14 @@ class User(UserMixin, db.Model):
         """
         return check_password_hash(self.password_hash, password)
 
-# Modelo de curso asociado a un profesor
-class Curso(db.Model):
-    __tablename__ = 'curso'
+# Modelo de Item para el inventario personal
+class Item(db.Model):
+    __tablename__ = 'item'
 
     id = db.Column(db.Integer, primary_key=True)
-    titulo = db.Column(db.String(100), nullable=False)
-    descripcion = db.Column(db.Text, nullable=False)
-    profesor_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    nombre = db.Column(db.String(100), nullable=False)
+    descripcion = db.Column(db.Text, nullable=True)
+    cantidad = db.Column(db.Integer, nullable=False, default=1)
+
+    # Relación con el usuario dueño del item
+    usuario_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

@@ -1,5 +1,7 @@
-{% extends "layout.html" %} {% block title %}Register{% endblock %} {% block
-content %}
+{% extends "layout.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
 
 <form method="POST" novalidate>
   <div class="d-flex justify-content-center align-items-center">
@@ -11,37 +13,33 @@ content %}
         {{ form.hidden_tag() }}
 
         <div class="mb-3">
-          {{ form.username.label(class="form-label") }} {{
-          form.username(class="form-control", placeholder="Enter your username")
-          }}
+          {{ form.username.label(class="form-label") }}
+          {{ form.username(class="form-control", placeholder="Enter your username") }}
         </div>
 
         <div class="mb-3">
-          {{ form.email.label(class="form-label") }} {{
-          form.email(class="form-control", placeholder="Enter your email") }}
+          {{ form.email.label(class="form-label") }}
+          {{ form.email(class="form-control", placeholder="Enter your email") }}
         </div>
 
         <div class="mb-3">
-          {{ form.password.label(class="form-label") }} {{
-          form.password(class="form-control", placeholder="Enter your password")
-          }}
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control", placeholder="Enter your password") }}
         </div>
 
         <div class="mb-3">
-          {{ form.confirm_password.label(class="form-label") }} {{
-          form.confirm_password(class="form-control", placeholder="Confirm your
-          password") }}
+          {{ form.confirm_password.label(class="form-label") }}
+          {{ form.confirm_password(class="form-control", placeholder="Confirm your password") }}
         </div>
 
-        <!-- New: Select Role -->
-        <div class="mb-3">
-          {{ form.role.label(class="form-label") }} {{
-          form.role(class="form-select") }}
-        </div>
       </div>
-      <div class="card-footer">{{ form.submit(class="btn btn-success") }}</div>
+
+      <div class="card-footer">
+        {{ form.submit(class="btn btn-success") }}
+      </div>
     </div>
   </div>
+
   <p class="pt-2 text-center">
     Already have an account?
     <a href="{{ url_for('auth.login') }}">Log in here</a>.

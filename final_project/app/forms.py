@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField, SelectField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, Email, EqualTo, Length, NumberRange
 
 # Formulario para login de usuario
 class LoginForm(FlaskForm):
@@ -14,13 +14,8 @@ class RegisterForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
-    
-    role = SelectField(
-        'Role',
-        choices=[('Student', 'Student'), ('Professor', 'Professor')],
-        validators=[DataRequired()]
-    )
 
+    # Eliminado el campo de rol porque ahora se asigna automáticamente como 'Usuario'
     submit = SubmitField('Register')
 
 # Formulario para cambiar la contraseña del usuario
@@ -30,8 +25,9 @@ class ChangePasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm new password', validators=[DataRequired(), EqualTo('new_password')])
     submit = SubmitField('Update Password')
 
-# Formulario para crear o editar un curso
-class CursoForm(FlaskForm):
-    titulo = StringField('Course title', validators=[DataRequired()])
-    descripcion = TextAreaField('Description', validators=[DataRequired()])
+# Formulario para crear o editar un Item del inventario
+class ItemForm(FlaskForm):
+    nombre = StringField('Item name', validators=[DataRequired()])
+    descripcion = TextAreaField('Description')
+    cantidad = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=1)])
     submit = SubmitField('Save')
