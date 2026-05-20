@@ -1,11 +1,15 @@
-{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block content
-%}
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
 <div class="text-center">
-  <h1 class="mt-5">Welcome to the Course Manager</h1>
+  <h1 class="mt-5">Welcome to Your Personal Inventory</h1>
+
   {% if current_user.id %}
-  <p class="lead text-muted">Select the Dashboard option to view the data.</p>
+    <p class="lead text-muted">Access your Dashboard to manage your items.</p>
   {% else %}
-  <p class="lead text-body-secondary">Please log in or register to continue.</p>
+    <p class="lead text-body-secondary">Please log in or register to continue.</p>
   {% endif %}
 </div>
 {% endblock %}
+
